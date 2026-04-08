@@ -1,0 +1,6 @@
+a = input ('escreva algo:')
+print ('O tipo primitivo disso e', type(a))
+print ('Tem espaço?'.isspace())
+print ('Tem letras'.isalpha())
+print ('Tem letras maiusculas?'.isupper())
+print ('E um numero?'.isalnum())
