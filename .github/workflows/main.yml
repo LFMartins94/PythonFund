@@ -29,4 +29,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Deploy (simulado)
-        run: echo "Deploy realizado com sucesso"
+        run: echo "Deploy realizado com sucesso no cliente com a API_TOKEN ${{ secrets.API_TOKEN }}"
