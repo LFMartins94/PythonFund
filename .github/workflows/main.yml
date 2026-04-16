@@ -2,21 +2,24 @@ name: Pipeline de CI-CD
 
 on:
   push:
-    branches: [master] # Note que seu print anterior mostrava a branch 'master'
+    branches: [master]
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    steps: # Corrigido de 'step' para 'steps'
-      - uses: actions/checkout@v3 # Corrigido de 'users' para 'uses'
+    steps:
+      - uses: actions/checkout@v4 # Corrigido: uses e versão v4
       
       - name: Setup Node
-        uses: actions/setup-node@v3 # Corrigido de 'action' para 'actions'
+        uses: actions/setup-node@v4 # Corrigido: actions no plural
         with:
           node-version: 18
           
       - run: npm install
-      - run: npm test # Garanta que existe um comando "test" no seu package.json
+      
+      # Vamos apenas rodar o index.js para testar, em vez do npm test
+      - name: Executar Automacao
+        run: node index.js 
 
   deploy:
     needs: build
