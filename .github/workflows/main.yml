@@ -1,33 +1,23 @@
-name: Pipeline Node e Python
+name: Pipeline CI/CD
+
 on:
-  push:
-    branches: [ "master" ] # Verifique se sua branch principal é master ou main
-
+ push:
+   branches: [main]
 jobs:
-  build-and-test:
+  build:
     runs-on: ubuntu-latest
-    steps:
-      - name: Baixar codigo do repositorio
-        uses: actions/checkout@v4
-      
-      # --- SETUP NODE.JS ---
-      - name: Configurar Node.js
-        uses: actions/setup-node@v4
+    step:
+      - users: actions/checkout@v3
+      - name: Setup Node
+        uses: action/setup-node@v3
         with:
-          node-version: 20 # Versão mais estável atualmente
-          cache: 'npm' # Agiliza os próximos pushes salvando as dependências
+          node-version: 18
+      - run: npm install
+      - run: npm run test
 
-      - name: Instalar dependencias
-        run: npm install
-
-      - name: Executar script Node
-        run: node index.js
-
-      # --- SETUP PYTHON ---
-      - name: Configurar Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.10'
-
-      - name: Validar scripts Python
-        run: python -m compileall .
+    deploy:
+       needs: build
+       runs-on: ubuntu-latest
+       steps:
+         - name: Deploy (simulado)
+           run: echo "Deploy realizado com sucesso"
