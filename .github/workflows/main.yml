@@ -1,23 +1,26 @@
-name: Pipeline CI/CD
+name: Pipeline de CI-CD
 
 on:
- push:
-   branches: [main]
+  push:
+    branches: [master] # Note que seu print anterior mostrava a branch 'master'
+
 jobs:
   build:
     runs-on: ubuntu-latest
-    step:
-      - users: actions/checkout@v3
+    steps: # Corrigido de 'step' para 'steps'
+      - uses: actions/checkout@v3 # Corrigido de 'users' para 'uses'
+      
       - name: Setup Node
-        uses: action/setup-node@v3
+        uses: actions/setup-node@v3 # Corrigido de 'action' para 'actions'
         with:
           node-version: 18
+          
       - run: npm install
-      - run: npm run test
+      - run: npm test # Garanta que existe um comando "test" no seu package.json
 
-    deploy:
-       needs: build
-       runs-on: ubuntu-latest
-       steps:
-         - name: Deploy (simulado)
-           run: echo "Deploy realizado com sucesso"
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy (simulado)
+        run: echo "Deploy realizado com sucesso"
